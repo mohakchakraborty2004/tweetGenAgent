@@ -17,4 +17,9 @@ def reg_user(user: USER):
     usersDB[user.name] = user.age
     return {"message": greet(user.name), "data": user.dict()}
 
+@app.get("/get-age")
+def get_age(name): 
+    age = usersDB[name]
+    return {"message": "hello", "data": age}
+
 
