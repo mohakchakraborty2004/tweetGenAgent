@@ -1,6 +1,7 @@
 from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
-from greeting import greet
+from greeting import gen_tweet
+from typing import List
 
 # const app = express()
 app = FastAPI()
@@ -11,15 +12,17 @@ class USER(BaseModel):
     name : str
     age : int
 
+class TWEET(BaseModel):
+    tasks : List[str]
 
 @app.post("/register")
 def reg_user(user: USER):
     usersDB[user.name] = user.age
-    return {"message": greet(user.name), "data": user.dict()}
+    return {"message": "hello", "data": user.dict()}
 
-@app.get("/get-age")
-def get_age(name): 
-    age = usersDB[name]
-    return {"message": "hello", "data": age}
+@app.post("/gen-tweet")
+def get_tweet(data: TWEET): 
+    return {"tweet" : gen_tweet(data)}
+    
 
 

@@ -31,6 +31,9 @@ print(user["role"])
 for task in tasks :
     print(f"task: {task}")
 
+for i in range(0,10) :
+    print(i)    
+
 count = 2 
 while count > 0  : 
     print(count)
