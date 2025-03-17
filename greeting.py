@@ -21,4 +21,4 @@ def gen_tweet(data):
 
     tweet = llm.invoke(prompt.format(tasks = tasks_str))
 
-    return f"tweet : {tweet.content}"
+    return f"{tweet.content}"
