@@ -15,6 +15,10 @@ class USER(BaseModel):
 class TWEET(BaseModel):
     tasks : List[str]
 
+@app.get("/")
+def read_root():
+    return {"message": "FastAPI is running"}
+
 @app.post("/register")
 def reg_user(user: USER):
     usersDB[user.name] = user.age
