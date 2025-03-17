@@ -1,2 +1,5 @@
 venv
 .env*
+src/a.txt
+main.py
+__pycache__
