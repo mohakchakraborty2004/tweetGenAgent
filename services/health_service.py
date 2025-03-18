@@ -8,7 +8,7 @@ logger = logging.getLogger(__name__)
 
 
 class HealthService:
-    def _init_(self):
+    def __init__(self):
         self.last_check = None
         self.is_healthy = True
         self.base_url = "https://tweetgenagent.onrender.com"
