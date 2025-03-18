@@ -8,6 +8,7 @@ from services.health_service import HealthService
 import requests
 import asyncio
 
+
 # const app = express()
 app = FastAPI()
 
@@ -17,6 +18,7 @@ health_service = HealthService()
 
 @app.on_event("startup")
 async def startup_event():
+    await asyncio.sleep(5)
     asyncio.create_task(health_service.keep_alive())
 
 
@@ -34,9 +36,6 @@ async def health_check():
     """
     return await health_service.health_check()
 
-@app.get("/")
-def read_root():
-    return {"message": "FastAPI is running"}
 
 @app.post("/register")
 def reg_user(user: USER):
@@ -50,5 +49,5 @@ def get_tweet(data: TWEET):
 
 if __name__ == "__main__":
     # Get port from environment variable or use a default
-    port = int(os.environ.get("PORT", 8000))
+    port = int(os.environ.get("PORT", 10000))
     uvicorn.run("app:app", host="0.0.0.0", port=port, reload=True)
