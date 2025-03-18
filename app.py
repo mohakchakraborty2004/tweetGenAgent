@@ -4,10 +4,21 @@ from greeting import gen_tweet
 from typing import List
 import uvicorn
 import os
+from services.health_service import HealthService
+import requests
+import asyncio
+
 # const app = express()
 app = FastAPI()
 
 usersDB = {}
+
+health_service = HealthService()
+
+@app.on_event("startup")
+async def startup_event():
+    asyncio.create_task(health_service.keep_alive())
+
 
 class USER(BaseModel):
     name : str
@@ -15,6 +26,13 @@ class USER(BaseModel):
 
 class TWEET(BaseModel):
     tasks : List[str]
+
+@app.get("/api/health")
+async def health_check():
+    """
+    Health check endpoint that returns the application status
+    """
+    return await health_service.health_check()
 
 @app.get("/")
 def read_root():
